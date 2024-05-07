@@ -1,0 +1,23 @@
+services:
+  speedtest-tracker:
+    restart: always
+    image: lscr.io/linuxserver/speedtest-tracker:latest
+    container_name: speedtest-tracker
+    ports:
+      - 8765:80
+    environment:
+      - PUID=1000
+      - PGID=1003
+      - TZ=Europe/Madrid
+      - DB_CONNECTION=sqlite
+      - PUBLIC_DASHBOARD=true
+      - MAIL_MAILER=smtp
+      - MAIL_HOST=smtp.gmail.com
+      - MAIL_PORT=465
+      - MAIL_USERNAME={{ MAIL }}
+      - MAIL_PASSWORD={{ GMAIL_APP_PASSWORD }}
+      - MAIL_ENCRYPTION=tls
+      - MAIL_FROM_ADDRESS={{ MAIL }}
+      - MAIL_FROM_NAME="Speedtest Tracker"
+    volumes:
+      - /portainer/Files/AppData/Config/speedtest-tracker:/config
